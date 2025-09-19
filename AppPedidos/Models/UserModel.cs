@@ -21,6 +21,8 @@ namespace AppPedidos.Models
 
         [Required(ErrorMessage = "El rol es obligatorio")]
         public Role Rol { get; set; }
+        public List<OrderModel> Orders { get; set; } = new();
+
         public enum Role
         {
             Admin,

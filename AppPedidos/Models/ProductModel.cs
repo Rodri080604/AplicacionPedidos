@@ -21,5 +21,7 @@ namespace AppPedidos.Models
         [Required(ErrorMessage = "El stock es obligatorio")]
         [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo")]
         public int Stock { get; set; }
+        public List<OrderItemModel> OrderItems { get; set; } = new();
+
     }
 }
