@@ -1,8 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<AppPedidos.Models.ProductModel>
+
+@{
+    ViewData["Title"] = "Inicio - AppPedidos";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Bienvenido a AppPedidos</h1>
+<p>Explora nuestros productos, realiza pedidos como Cliente, gestiona pedidos como Empleado o controla todo como Administrador. ¡Regístrate o inicia sesión para comenzar!</p>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    if (User.IsInRole("Cliente"))
+    {
+        <p><a asp-controller="Product" asp-action="Index" class="btn btn-primary">Ver Productos</a></p>
+    }
+    else if (User.IsInRole("Empleado") || User.IsInRole("Admin"))
+    {
+        <p><a asp-controller="Order" asp-action="Index" class="btn btn-primary">Gestionar Pedidos</a></p>
+    }
+    if (User.IsInRole("Admin"))
+    {
+        <p><a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Gestionar Empleados</a></p>
+    }
+}
+else
+{
+    <p><a asp-controller="Account" asp-action="Login" class="btn btn-success">Iniciar Sesión</a></p>
+    <p><a asp-controller="Account" asp-action="Register" class="btn btn-secondary">Registrarse</a></p>
+}
+
+<h2>Productos Disponibles</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Precio)</th>
+            <th>@Html.DisplayNameFor(model => model.Stock)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+            </tr>
+        }
+    </tbody>
+</table>

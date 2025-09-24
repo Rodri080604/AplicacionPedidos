@@ -22,7 +22,15 @@ namespace AppPedidos.Controllers
         // GET: UserModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            try
+            {
+                return View(await _context.Users.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (e.g., using a logging framework)
+                return View("Error"); // Render a custom error view
+            }
         }
 
         // GET: UserModels/Details/5
