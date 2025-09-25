@@ -29,9 +29,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rol" class="control-label"></label>
-                <select asp-for="Rol" class="form-control"></select>
+                <select asp-for="Rol" class="form-control" asp-items="Html.GetEnumSelectList<UserModel.Role>()" disabled></select>
                 <span asp-validation-for="Rol" class="text-danger"></span>
             </div>
+            @Html.HiddenFor(model => model.Rol) <!-- Mantiene el valor Cliente -->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

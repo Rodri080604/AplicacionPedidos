@@ -54,7 +54,12 @@ namespace AppPedidos.Controllers
         // GET: UserModels/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new UserModel();
+            if (RouteData.Values["rol"] != null)
+            {
+                model.Rol = (UserModel.Role)int.Parse(RouteData.Values["rol"].ToString());
+            }
+            return View(model);
         }
 
         // POST: UserModels/Create
@@ -66,6 +71,7 @@ namespace AppPedidos.Controllers
         {
             if (ModelState.IsValid)
             {
+                userModel.Password = BCrypt.Net.BCrypt.HashPassword(userModel.Password); // Hash la contraseña
                 _context.Add(userModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

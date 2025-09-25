@@ -1,4 +1,4 @@
-﻿@model object // No necesita modelo específico
+﻿@model AppPedidos.Controllers.LoginViewModel
 
 @{
     ViewData["Title"] = "Iniciar Sesión";
@@ -9,12 +9,14 @@
 <form asp-action="Login" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="email">Email</label>
-        <input name="email" class="form-control" />
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="password">Contraseña</label>
-        <input name="password" type="password" class="form-control" />
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary mt-2">Iniciar Sesión</button>
 </form>
